@@ -3,3 +3,4 @@ openai
 python-dotenv
 newspaper4k
 lxml_html_clean
+lxml[html_clean]
