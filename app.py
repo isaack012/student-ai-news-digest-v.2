@@ -6,41 +6,36 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
+import requests
+from bs4 import BeautifulSoup
 
 load_dotenv(override=True)
 
 MODEL_NAME = "gpt-4o-mini"
 MAX_ARTICLE_CHARS = 12000
 
-
 def extract_article(url: str) -> Dict[str, str]:
-    """Download and parse article content from a URL."""
-    try:
-        from newspaper import Article
-    except ModuleNotFoundError as exc:
-        if exc.name == "lxml_html_clean":
-            raise RuntimeError(
-                "Missing dependency: install lxml-html-clean with "
-                "`python3 -m pip install lxml-html-clean` and restart the app."
-            ) from exc
-        raise
-
-    article = Article(url)
-    article.download()
-    article.parse()
-
-    title = article.title.strip() or "Untitled Article"
-    text = article.text.strip()
-
-    if not text:
-        raise ValueError("No article text could be extracted from this URL.")
-
-    return {
-        "url": url,
-        "title": title,
-        "text": text,
+    headers = {
+        "User-Agent": "Mozilla/5.0"
     }
 
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+
+    paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")]
+    text = " ".join(paragraphs)
+
+    if not text.strip():
+        raise ValueError("Could not extract article text.")
+
+    return {"text": text[:MAX_ARTICLE_CHARS]}
+
+    }
 
 def summarize_article(
     client: OpenAI, topic: str, audience: str, article: Dict[str, str]
