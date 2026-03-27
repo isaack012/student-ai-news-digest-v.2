@@ -6,12 +6,12 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
 import requests
 from bs4 import BeautifulSoup
 
 load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 MODEL_NAME = "gpt-4o-mini"
 MAX_ARTICLE_CHARS = 12000
