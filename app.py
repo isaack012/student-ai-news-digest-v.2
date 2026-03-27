@@ -33,12 +33,11 @@ def extract_article(url: str) -> Dict[str, str]:
     if not text.strip():
         raise ValueError("Could not extract article text.")
 
-   return {
-    "url": url,
-    "title": "Extracted Article",
-    "text": text[:MAX_ARTICLE_CHARS],
-}
-
+    return {
+        "url": url,
+        "title": "Extracted Article",
+        "text": text[:MAX_ARTICLE_CHARS],
+    }
     
 def summarize_article(
     client: OpenAI, topic: str, audience: str, article: Dict[str, str]
