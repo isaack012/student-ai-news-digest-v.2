@@ -6,7 +6,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 import requests
 from bs4 import BeautifulSoup
