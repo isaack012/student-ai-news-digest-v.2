@@ -11,7 +11,7 @@ client = OpenAI()
 import requests
 from bs4 import BeautifulSoup
 
-load_dotenv(override=True)
+load_dotenv()
 
 MODEL_NAME = "gpt-4o-mini"
 MAX_ARTICLE_CHARS = 12000
