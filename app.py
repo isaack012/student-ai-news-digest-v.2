@@ -97,7 +97,7 @@ def synthesize_insights(
         ]
     )
 
-    prompt = f"""
+    prompt = f"
 Compare these article summaries about "{topic}" for an audience of {audience}.
 
 Organize the response with these exact section headers:
