@@ -13,11 +13,7 @@ This is an AI-powered application that researches, summarizes, and synthesizes i
 - Python
 - Streamlit
 - OpenAI API
-- newspaper4k
-
-## How to Run
-pip install -r requirements.txt  
-streamlit run app.py
+- newspaper
 
 ## Description
-This AI agent goes beyond simple summarization by comparing multiple sources, identifying trends, and generating structured content tailored for students.
+This AI agent goes beyond simple summarization by comparing multiple sources, identifying trends, and generating structured content tailored for students that want to be up to date.
